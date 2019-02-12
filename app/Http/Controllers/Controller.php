@@ -37,6 +37,9 @@ class Controller extends BaseController
       
         $channels=[];
         $errorMsg='';
+        if($request->errorMsg){
+            $errorMsg=$request->errorMsg;
+        }
         if($request->error==1){
             $errorMsg="can't connect to Slack please try again later";
         }else{

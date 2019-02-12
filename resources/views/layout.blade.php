@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>slackApp</title>
@@ -71,8 +72,11 @@
         </style>
     </head>
     <body>
+        
     @if(isset($errorMsg))
+    <div style="margin:5%">
     {{$errorMsg}}
+    </div>
     @endif
         <div class="flex-left position-ref full-height">         
 

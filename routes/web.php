@@ -15,4 +15,5 @@ Route::get('/',['uses' => 'Controller@index', 'as' => 'index']);
 Route::get('/stackAuthReturn', ['uses' => 'Controller@stackAuthReturn', 'as' => 'stackAuthReturn']);
 Route::get('/createChannel', ['uses' => 'ChannelController@createChannel', 'as' => 'createChannel']);
 Route::post('/channeldetails', ['uses' => 'ChannelController@channelDetails', 'as' => 'channeldetails']);
+Route::post('/postNewChannel', ['uses' => 'ChannelController@postNewChannel', 'as' => 'postNewChannel']);
 Route::post('/postMsg', ['uses' => 'ChannelController@postMessage', 'as' => 'postMsg']);

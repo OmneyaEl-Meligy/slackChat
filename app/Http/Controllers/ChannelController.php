@@ -12,7 +12,7 @@ class ChannelController extends Controller
     }
 
     public function createChannel(){
-        dd('test');
+        return  view('createChannel');
     }
 
     public function channelDetails(Request $request){
@@ -30,10 +30,33 @@ class ChannelController extends Controller
                $users=$response->users;
            }
         }
-        return view('chatChannel')->with('errorMsg',$errorMsg)->with('messages',$messages)->with('users',$users);
+        return view('chatChannel')->with('errorMsg',$errorMsg)->with('messages',$messages)->with('users',$users)->with('channelId',$channelId);
         
     }
+    public function postNewChannel(Request $request){
+        $channelName=$request->channelName;
+        $response=$this->slackService->postNewChannel($channelName);
+        if($response->ok){
+            $channelId= $response->channel->id;
+            return redirect('/?errorMsg=Created Successfully');//->with('messages',$messages)->with('users',$users);
+            
+        }
+        else {
+            $errorMsg="something went wrong please try later";
+            if($response->error){
+                $errorMsg=$response->error;
+            }
+            return redirect('/?errorMsg='.$errorMsg);         
+        }
+    }
     public function postMessage(Request $request){
-        return 'test';
+        $message=$request->message;
+        $channelId=$request->channelId;
+        $response=$this->slackService->postMessage($channelId,$message);
+       if ($response->ok){
+            return response()->json($response->message);
+       }
+       //$error="Error";
+        return ['error'=>1, 'errorMsg'=>$response->error];
     }
 }
